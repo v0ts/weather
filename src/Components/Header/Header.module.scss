@@ -10,7 +10,7 @@
 
 .nav {
 	display: flex;
-	margin-right: 519px;
+	margin-right: auto;
 }
 
 .logo {
@@ -24,6 +24,7 @@
 	gap: 45px;
 	justify-content: center;
 	align-items: center;
+	list-style: none;
 }
 
 .link {
@@ -34,6 +35,13 @@
 	font-weight: 500;
 	line-height: normal;
 	text-decoration: none;
+	text-wrap-mode: nowrap;
+
+	transition: color 250ms;
+}
+
+.link:hover {
+	color: #ffb36c;
 }
 
 .signup {
@@ -58,4 +66,189 @@
 
 	border-radius: 10px;
 	background: #ffb36c;
+
+	transform: scale(1);
+
+	transition: transform 250ms ease-out;
+}
+
+.button:hover {
+	transform: scale(1.1);
+}
+
+.profile {
+	max-width: 50px;
+	max-height: 50px;
+
+	cursor: pointer;
+}
+
+.backdrop {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	z-index: 1;
+}
+
+.modal {
+	// max-width: 600px;
+	border: 1px solid black;
+	border-radius: 25px;
+	padding: 28px 80px;
+	background-color: white;
+
+	transform: translate(50% 50%);
+
+	z-index: 99;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.modalTitle {
+	color: #000;
+	font-family: 'Montserrat Alternates';
+	font-size: 28px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-align: center;
+
+	margin-bottom: 40px;
+}
+
+.modalForm,
+.modalList,
+.modalItem {
+	display: flex;
+	flex-direction: column;
+}
+
+.modalForm {
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.modalList {
+	gap: 30px;
+	margin-bottom: 35px;
+}
+
+.modalItem {
+	width: 100%;
+}
+
+.modalLabel {
+	color: #000;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	margin-bottom: 15px;
+}
+
+.modalInput {
+	color: #ababab;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	width: 100%;
+	min-width: 440px;
+	max-width: 440px;
+	max-height: 50px;
+
+	border-radius: 10px;
+	background: #e4e4e4;
+
+	padding: 20px 17px;
+
+	border: 1px solid transparent;
+
+	transition: border 500ms;
+}
+
+.modalInput:hover,
+.modalInput:focus {
+	border: 1px solid black;
+}
+
+.modalButton {
+	color: #000;
+	font-family: Montserrat;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+
+	padding: 10px 30px;
+
+	border-radius: 10px;
+	background: #ffb36c;
+
+	max-width: 114px;
+	max-height: 37px;
+
+	justify-content: center;
+	align-items: center;
+
+	transform: scale(1);
+	transition: transform 250ms;
+}
+
+.modalButton:hover,
+.modalButton:focus {
+	transform: scale(1.1);
+}
+
+.modalFooter {
+	color: #000;
+	font-family: Montserrat;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.modalLink {
+	color: #000;
+	font-family: Montserrat;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-decoration-line: underline;
+	text-decoration-style: solid;
+	text-decoration-skip-ink: none;
+	text-decoration-thickness: auto;
+	text-underline-offset: auto;
+	text-underline-position: from-font;
+
+	cursor: pointer;
+
+	transition: color 250ms;
+}
+
+.modalLink:hover,
+.modalLink:focus {
+	color: #FFB36C;
+}
+
+.wrong { 
+	border: 1px solid red;
 }
