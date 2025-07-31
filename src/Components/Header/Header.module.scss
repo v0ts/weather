@@ -1,0 +1,61 @@
+.header {
+	padding: 12px 0;
+}
+
+.box {
+	display: flex;
+	align-items: center;
+	max-width: 100%;
+}
+
+.nav {
+	display: flex;
+	margin-right: 519px;
+}
+
+.logo {
+	max-width: 82px;
+	max-height: 56px;
+	margin-right: 111px;
+}
+
+.list {
+	display: flex;
+	gap: 45px;
+	justify-content: center;
+	align-items: center;
+}
+
+.link {
+	color: #000;
+	font-family: 'Montserrat Alternates';
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-decoration: none;
+}
+
+.signup {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 27px;
+}
+
+.button {
+	color: #000;
+	font-family: 'Montserrat Alternates';
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+	padding: 10px 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+
+	border-radius: 10px;
+	background: #ffb36c;
+}
