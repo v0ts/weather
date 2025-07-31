@@ -201,7 +201,7 @@ export function Header() {
 				<Container>
 					<div className={style.box}>
 						<nav className={style.nav}>
-							<img className={style.logo} src={logo} alt='Logo' />
+							<img className={style.logo} src={logo} alt='Weather Logo' />
 							<ul className={style.list}>
 								<li className={style.item}>
 									<a className={style.link} href=''>
