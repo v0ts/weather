@@ -1,9 +1,8 @@
 {
 	"name": "package.json",
-	"private": false,
+	"private": true,
 	"version": "0.0.0",
 	"type": "module",
-	"homepage": "https://v0ts.github.io/weather/",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
