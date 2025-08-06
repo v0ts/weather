@@ -1,0 +1,97 @@
+.hero {
+  position: relative;
+  height: 595px;
+
+  padding: 100px 0;
+
+  background-image: url("./img/background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.heroContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.48);
+}
+
+.title {
+  margin: 0 0 80px 0;
+
+  font-weight: 600;
+  font-size: 40px;
+  color: #fff;
+  text-align: center;
+}
+
+.flex {
+  margin: 0 0 80px 0;
+  display: flex;
+  gap: 52px;
+  justify-content: center;
+}
+
+.subtitle {
+  max-width: 345px;
+
+  font-size: 24px;
+  color: #fff;
+}
+
+.separator {
+  width: 3px;
+  height: 144px;
+  background-color: #fff;
+}
+
+.date {
+  max-width: 170px;
+
+  font-size: 24px;
+  color: #fff;
+}
+
+.inputBox {
+  display: flex;
+}
+
+.input {
+  width: 580px;
+  height: 42px;
+  padding: 12px 30px;
+  border-radius: 10px 0 0 10px;
+
+  background-color: #d9d9d9;
+
+  &::placeholder {
+    font-size: 14px;
+    color: #878787;
+  }
+}
+
+.search {
+  border-left: 2px solid #000;
+  border-radius: 0 10px 10px 0;
+  width: 45px;
+  height: 42px;
+
+  background-color: #ffb36c;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
