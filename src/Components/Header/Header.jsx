@@ -329,6 +329,8 @@ export function Header() {
 				</Container>
 			</header>
 
+			
+
 			{isModalOpen ? (
 				signIn ? (
 					<div className={style.backdrop} onClick={() => setIsModalOpen(false)}>
