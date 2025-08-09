@@ -15,12 +15,56 @@ function App() {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
+    if (
+      localStorage.getItem("weatherData") !== null &&
+      localStorage.length !== 0
+    ) {
+      const localStorageData = JSON.parse(localStorage.getItem("weatherData"));
+      setWeatherData(localStorageData);
+    }
+  }, []);
+
+  useEffect(() => {
     if (keyword) {
       getWeather(keyword).then((data) => {
-        setWeatherData((prev) => [data, ...prev]);
+        setWeatherData((prev) => {
+          const exists = prev.some((item) => item.id === data.id);
+
+          if (exists) return prev;
+          return [data, ...prev];
+        });
       });
     }
   }, [keyword]);
+
+  useEffect(() => {
+    if (weatherData.length !== 0) {
+      localStorage.setItem("weatherData", JSON.stringify(weatherData));
+    }
+  }, [weatherData]);
+
+  const deleteCard = (id) => {
+    const newWeatherData = weatherData.filter((weather) => weather.id !== id);
+    setWeatherData(newWeatherData);
+  };
+
+  const refreshCard = (id, keyword) => {
+    let index = null;
+
+    for (let i = 0; i < weatherData.length; i++) {
+      if (weatherData[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+
+    getWeather(keyword).then((data) => {
+      const weatherDataCopy = [...weatherData];
+      weatherDataCopy[index] = data;
+
+      setWeatherData(weatherDataCopy);
+    });
+  };
 
   return (
     <>
@@ -29,10 +73,14 @@ function App() {
         <main>
           <Hero setKeyword={setKeyword}></Hero>
           {weatherData.length !== 0 ? (
-            <Weather weatherData={weatherData}></Weather>
+            <Weather
+              weatherData={weatherData}
+              deleteCard={deleteCard}
+              refreshCard={refreshCard}
+            ></Weather>
           ) : null}
-          <News></News>
-          <Slider></Slider>
+          {/* <News></News>
+          <Slider></Slider> */}
         </main>
         <Footer />
       </HeaderProvider>
