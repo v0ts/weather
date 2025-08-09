@@ -1,7 +1,7 @@
 import styles from "./Hero.module.scss";
 import { Container } from "../Container/Container";
 
-// import searchIcon from "./img/search.svg";
+import searchIcon from "./img/search.svg";
 
 export function Hero({ setKeyword }) {
   const handleSubmit = (e) => {
@@ -49,13 +49,16 @@ export function Hero({ setKeyword }) {
               name="city"
             />
             <button className={styles.search}>
-              {/* <svg className={styles.icon}>
-                <use href={searchIcon}></use>
-              </svg> */}
+              <svg className={styles.iconMobile} >
+                <use href={searchIcon} width="9" height="9"></use>
+              </svg>
+              <svg className={styles.iconDesktop} >
+                <use href={searchIcon} width="25" height="25"></use>
+              </svg>
             </button>
           </form>
         </Container>
       </div>
     </section>
   );
-}
+}3

@@ -31,16 +31,9 @@ export function Weather({ weatherData }) {
   const year = date.getFullYear();
   const day = dayNameFormatter.format(date);
 
-  const handleSeeMore = () => {
-    setShowDetails(!showDetails);
-  };
-
-  const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
-
+  const handleSeeMore = () => setShowDetails(!showDetails);
+  const handleFavorite = () => setIsFavorite(!isFavorite);
   const handleRefresh = () => {};
-
   const handleDelete = () => {};
 
   return (
@@ -80,27 +73,14 @@ export function Weather({ weatherData }) {
           <div>{temperature}°C</div>
 
           <div>
-            <button onClick={handleRefresh}>
-              ↻
-            </button>
-            <button 
-              className={isFavorite ? 'active' : ''}
-              onClick={handleFavorite}
-            >
-              ♥
-            </button>
-            <button onClick={handleDelete}>
-              🗑
-            </button>
-            <button onClick={handleSeeMore}>
-              See more
-            </button>
+            <button onClick={handleRefresh}>↻</button>
+            <button className={isFavorite ? 'active' : ''} onClick={handleFavorite}>♥</button>
+            <button onClick={handleDelete}>🗑</button>
+            <button onClick={handleSeeMore}>See more</button>
           </div>
         </div>
-        
-        {showDetails && (
-          <WeatherDetails weatherData={weatherData} />
-        )}
+
+        {showDetails && <WeatherDetails weatherData={weatherData} />}
       </Container>
     </section>
   );

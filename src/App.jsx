@@ -13,52 +13,41 @@ import { HeaderProvider } from "./Components/Header/HeaderContext";
 function App() {
   const [keyword, setKeyword] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const data = await getWeatherByCoords(latitude, longitude);
-            if (data) {
-              setWeatherData(data);
-            }
-          } catch (error) {
-            console.error("Error fetching weather by coords:", error);
-          }
-          setIsLoading(false);
-        },
-        (error) => {
-          console.error("Geolocation error:", error);
-          setIsLoading(false);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0
-        }
-      );
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
 
   useEffect(() => {
     if (keyword) {
-      setIsLoading(true);
-      getWeather(keyword)
-        .then((data) => {
-          if (data) {
-            setWeatherData(data);
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      getWeather(keyword).then((data) => setWeatherData(data));
     }
   }, [keyword]);
+
+  useEffect(() => {
+    if (weatherData.length) {
+      localStorage.setItem("weatherData", JSON.stringify(weatherData));
+    }
+  }, [weatherData]);
+
+  const deleteCard = (id) => {
+    const newWeatherData = weatherData.filter((weather) => weather.id !== id);
+    setWeatherData(newWeatherData);
+  };
+
+  const refreshCard = (id, keyword) => {
+    let index = null;
+
+    for (let i = 0; i < weatherData.length; i++) {
+      if (weatherData[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+
+    getWeather(keyword).then((data) => {
+      const weatherDataCopy = [...weatherData];
+      weatherDataCopy[index] = data;
+
+      setWeatherData(weatherDataCopy);
+    });
+  };
 
   return (
     <>
@@ -66,11 +55,7 @@ function App() {
         <Header />
         <main>
           <Hero setKeyword={setKeyword}></Hero>
-          {isLoading ? (
-            <div>Loading weather data...</div>
-          ) : (
-            weatherData && <Weather weatherData={weatherData}></Weather>
-          )}
+          {weatherData ? <Weather weatherData={weatherData}></Weather> : null}
           <News></News>
           <Slider></Slider>
         </main>

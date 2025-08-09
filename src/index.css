@@ -28,6 +28,7 @@ input {
 	box-sizing: border-box;
 	outline: none;
 	border: 0;
+	display: block;
 }
 
 h1,
@@ -40,13 +41,11 @@ p,
 a {
 	margin: 0;
 	padding: 0;
-	text-wrap-mode: nowrap;
 	text-decoration: none;
 	border: none;
 }
 
 button {
-	text-wrap-mode: nowrap;
 	text-decoration: none;
 	border: none;
 	cursor: pointer;
