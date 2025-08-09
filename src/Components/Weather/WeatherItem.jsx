@@ -7,12 +7,14 @@ import deleteIcon from "./img/delete.svg";
 import { FaRegHeart as HeartIcon } from "react-icons/fa";
 import { FaHeart as FullHeartIcon } from "react-icons/fa6";
 
-export function WeatherItem({
-  data,
-  id,
-  deleteCard,
-  refreshCard,
-}) {
+export function WeatherItem({ data, id, deleteCard, refreshCard }) {
+  const [isFav, setFav] = useState(false);
+
+  useEffect(() => {
+    if (isFav) {
+      console.log(0);
+    }
+  }, [isFav]);
 
   return (
     <li className={styles.item} id={id}>
@@ -61,17 +63,16 @@ export function WeatherItem({
             height="30"
           ></use>
         </svg>
-        {/* {isFav ? ( */}
-          {/* <FullHeartIcon className={styles.iconFav} /> */}
-        {/* ) : ( */}
+        {isFav ? (
+          <FullHeartIcon className={styles.iconFav} />
+        ) : (
           <HeartIcon
             className={styles.iconFav}
             onClick={() => {
               setFav(true);
-              setFavName(data.city);
             }}
           />
-        {/* )} */}
+        )}
 
         <button className={styles.button}>See more</button>
         <svg className={styles.icon} onClick={() => deleteCard(id)}>

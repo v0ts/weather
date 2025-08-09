@@ -8,6 +8,7 @@ export function Weather({
   deleteCard,
   refreshCard,
 }) {
+  const [favorites, setFavorites] = useState({});
 
   return (
     <section className={styles.weather}>
@@ -47,6 +48,8 @@ export function Weather({
                   id={id}
                   deleteCard={deleteCard}
                   refreshCard={refreshCard}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
                   data={{
                     city,
                     country,

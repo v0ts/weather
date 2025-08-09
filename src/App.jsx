@@ -37,8 +37,11 @@ function App() {
   }, [keyword]);
 
   useEffect(() => {
-    if (weatherData.length) {
+    if (weatherData.length > 0) {
+      localStorage.setItem("weatherData", []);
       localStorage.setItem("weatherData", JSON.stringify(weatherData));
+    } else if (weatherData.length === 0) {
+      localStorage.removeItem("weatherData");
     }
   }, [weatherData]);
 
@@ -78,7 +81,7 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          <News></News>
+          {/* <News></News> */}
           <Slider></Slider>
         </main>
         <Footer />
