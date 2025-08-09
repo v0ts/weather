@@ -1,54 +1,106 @@
+import { useState } from "react";
 import { Container } from "../Container/Container";
+import { WeatherDetails } from "./WeatherDetails";
 
 export function Weather({ weatherData }) {
+  const [showDetails, setShowDetails] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [activeTab, setActiveTab] = useState('hourly');
+  
   const regionName = new Intl.DisplayNames("en-US", { type: "region" });
   const dayNameFormatter = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
   });
 
-  const city = weatherData.name;
-  const country = regionName.of(weatherData.sys.country);
-  const temp = Math.round(weatherData.main.temp);
+  const {
+    current: {
+      name: city,
+      sys: { country },
+      main: { temp },
+    }
+  } = weatherData;
+
+  const countryName = regionName.of(country);
+  const temperature = Math.round(temp);
 
   const date = new Date();
-
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
   const dayDate = date.getDate();
-  const month = date.getMonth();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const year = date.getFullYear();
   const day = dayNameFormatter.format(date);
+
+  const handleSeeMore = () => {
+    setShowDetails(!showDetails);
+  };
+
+  const handleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  const handleRefresh = () => {};
+
+  const handleDelete = () => {};
 
   return (
     <section>
       <Container>
-        <div className="">
-          <p>{city}</p>
-          <p>{country}</p>
+        <div>
+          <div>
+            <div>
+              <h2>{city}</h2>
+              <p>{countryName}</p>
+            </div>
+            <div>
+              {hours}:{minutes}
+            </div>
+          </div>
 
-          <p>
-            {hours}:{minutes}
-          </p>
+          <div>
+            <button 
+              className={activeTab === 'hourly' ? 'active' : ''}
+              onClick={() => setActiveTab('hourly')}
+            >
+              Hourly forecast
+            </button>
+            <button 
+              className={activeTab === 'weekly' ? 'active' : ''}
+              onClick={() => setActiveTab('weekly')}
+            >
+              Weekly forecast
+            </button>
+          </div>
 
-          <ul>
-            <li>
-              <button>Hourly forecast</button>
-            </li>
-            <li>
-              <button>Weekly forecast</button>
-            </li>
-          </ul>
-
-          <p>
+          <div>
             {dayDate}.{month}.{year}
-          </p>
-          <p>{day}</p>
+          </div>
+          <div>{day}</div>
 
-          <h2>{temp}℃</h2>
+          <div>{temperature}°C</div>
 
-          <button>See more</button>
+          <div>
+            <button onClick={handleRefresh}>
+              ↻
+            </button>
+            <button 
+              className={isFavorite ? 'active' : ''}
+              onClick={handleFavorite}
+            >
+              ♥
+            </button>
+            <button onClick={handleDelete}>
+              🗑
+            </button>
+            <button onClick={handleSeeMore}>
+              See more
+            </button>
+          </div>
         </div>
+        
+        {showDetails && (
+          <WeatherDetails weatherData={weatherData} />
+        )}
       </Container>
     </section>
   );

@@ -1,6 +1,6 @@
 import "normalize.css";
 import { useEffect, useState } from "react";
-import { getWeather } from "./services/get-weather";
+import { getWeather, getWeatherByCoords } from "./services/get-weather";
 
 import { Header } from "./Components/Header/Header";
 import { Hero } from "./Components/Hero/Hero";
@@ -13,10 +13,50 @@ import { HeaderProvider } from "./Components/Header/HeaderContext";
 function App() {
   const [keyword, setKeyword] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const data = await getWeatherByCoords(latitude, longitude);
+            if (data) {
+              setWeatherData(data);
+            }
+          } catch (error) {
+            console.error("Error fetching weather by coords:", error);
+          }
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setIsLoading(false);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (keyword) {
-      getWeather(keyword).then((data) => setWeatherData(data));
+      setIsLoading(true);
+      getWeather(keyword)
+        .then((data) => {
+          if (data) {
+            setWeatherData(data);
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [keyword]);
 
@@ -26,7 +66,11 @@ function App() {
         <Header />
         <main>
           <Hero setKeyword={setKeyword}></Hero>
-          {weatherData ? <Weather weatherData={weatherData}></Weather> : null}
+          {isLoading ? (
+            <div>Loading weather data...</div>
+          ) : (
+            weatherData && <Weather weatherData={weatherData}></Weather>
+          )}
           <News></News>
           <Slider></Slider>
         </main>
