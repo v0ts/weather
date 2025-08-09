@@ -1,16 +1,13 @@
 import { Container } from "../Container/Container";
 import { WeatherItem } from "./WeatherItem";
-import { v4 as uuidv4 } from "uuid";
 import styles from "./Weather.module.scss";
 
-export function Weather({ weatherData }) {
+export function Weather({ weatherData, deleteCard, refreshCard }) {
   return (
     <section className={styles.weather}>
       <Container>
         <ul className={styles.wrapper}>
           {weatherData.map((weather) => {
-            console.log(weather);
-
             if (weather !== null) {
               const regionName = new Intl.DisplayNames("en-US", {
                 type: "region",
@@ -36,9 +33,14 @@ export function Weather({ weatherData }) {
               const icon = weather.weather[0].icon;
               const iconSrc = `https://openweathermap.org/img/wn/${icon}@4x.png`;
 
+              const id = weather.id;
+
               return (
                 <WeatherItem
-                  key={uuidv4()}
+                  key={id}
+                  id={id}
+                  deleteCard={deleteCard}
+                  refreshCard={refreshCard}
                   data={{
                     city,
                     country,

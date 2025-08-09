@@ -4,10 +4,9 @@ import refreshIcon from "./img/refresh.svg";
 import heartIcon from "./img/heart.svg";
 import deleteIcon from "./img/delete.svg";
 
-export function WeatherItem({data}) {
-  // console.log(props);
+export function WeatherItem({ data, id, deleteCard, refreshCard }) {
   return (
-    <li className={styles.item}>
+    <li className={styles.item} id={id}>
       <div className={styles.textFlex}>
         <p className={styles.text}>{data.city}</p>
         <p className={styles.text}>{data.country}</p>
@@ -39,7 +38,10 @@ export function WeatherItem({data}) {
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg className={styles.icon}>
+        <svg
+          className={styles.icon}
+          onClick={(e) => refreshCard(id, data.city)}
+        >
           <use
             className={styles.iconMobile}
             href={refreshIcon}
@@ -68,7 +70,7 @@ export function WeatherItem({data}) {
           ></use>
         </svg>
         <button className={styles.button}>See more</button>
-        <svg className={styles.icon}>
+        <svg className={styles.icon} onClick={(e) => deleteCard(id)}>
           <use
             className={styles.iconMobile}
             href={deleteIcon}
