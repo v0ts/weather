@@ -1,8 +1,14 @@
+import { useState, useEffect } from "react";
 import { Container } from "../Container/Container";
 import { WeatherItem } from "./WeatherItem";
 import styles from "./Weather.module.scss";
 
-export function Weather({ weatherData, deleteCard, refreshCard }) {
+export function Weather({
+  weatherData,
+  deleteCard,
+  refreshCard,
+}) {
+
   return (
     <section className={styles.weather}>
       <Container>

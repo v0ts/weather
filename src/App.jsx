@@ -25,11 +25,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (keyword) {
+    if (keyword && keyword.trim() !== "") {
       getWeather(keyword).then((data) => {
         setWeatherData((prev) => {
           const exists = prev.some((item) => item.id === data.id);
-
           if (exists) return prev;
           return [data, ...prev];
         });
@@ -38,7 +37,7 @@ function App() {
   }, [keyword]);
 
   useEffect(() => {
-    if (weatherData.length !== 0) {
+    if (weatherData.length) {
       localStorage.setItem("weatherData", JSON.stringify(weatherData));
     }
   }, [weatherData]);
@@ -79,8 +78,8 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          {/* <News></News>
-          <Slider></Slider> */}
+          <News></News>
+          <Slider></Slider>
         </main>
         <Footer />
       </HeaderProvider>
