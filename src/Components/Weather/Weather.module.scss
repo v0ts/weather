@@ -2,6 +2,25 @@
   padding: 35px 0;
 }
 
+.wrapper {
+  display: grid;
+  gap: 35px;
+  grid-template-columns: repeat(1, 293px);
+  justify-content: center;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 262px);
+    row-gap: 50px;
+    column-gap: 110px;
+  }
+
+  @media screen and (min-width: 1140px) {
+    grid-template-columns: repeat(3, 320px);
+    row-gap: 40px;
+    column-gap: 50px;
+  }
+}
+
 .item {
   width: 293px;
   padding: 15px;
