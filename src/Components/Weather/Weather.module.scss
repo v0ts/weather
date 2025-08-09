@@ -1,0 +1,154 @@
+.weather {
+  padding: 35px 0;
+}
+
+.item {
+  width: 293px;
+  padding: 15px;
+  border-radius: 20px;
+  background-color: #e8e8e8;
+}
+
+.textFlex {
+  margin: 0 0 25px 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (min-width: 1140px) {
+    margin: 0 0 15px 0;
+  }
+}
+
+.text {
+  font-size: 12px;
+  color: #000;
+
+  @media screen and (min-width: 1140px) {
+    font-size: 14px;
+  }
+}
+
+.time {
+  margin: 0 0 11px 0;
+
+  font-size: 20px;
+  color: #000;
+  text-align: center;
+
+  @media screen and (min-width: 1140px) {
+    font-size: 24px;
+  }
+}
+
+.buttonsList {
+  margin: 0 0 12px 0;
+
+  display: flex;
+  gap: 21px;
+  justify-content: center;
+
+  @media screen and (min-width: 1140px) {
+    margin: 0 0 15px 0;
+  }
+}
+
+.button {
+  border-radius: 5px;
+  padding: 8px 18px;
+
+  font-size: 9px;
+  color: #000;
+  background-color: #ffb36c;
+
+  @media screen and (min-width: 1140px) {
+    border-radius: 10px;
+
+    font-size: 10px;
+  }
+}
+
+.dateFlex {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.separator {
+  width: 1px;
+  height: 14px;
+
+  background-color: #000;
+
+  @media screen and (min-width: 1140px) {
+    height: 17px;
+  }
+}
+
+.img {
+  width: 143px;
+  height: 143px;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1140px) {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+.temp {
+  margin: 0 0 44px 0;
+
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+
+  @media screen and (min-width: 1140px) {
+    margin: 0 0 39px 0;
+    font-size: 32px;
+  }
+}
+
+.iconsFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > .button {
+    margin: 0 27px 0 32px;
+  }
+
+  .icon:nth-child(1) {
+    margin: 0 14px 0 0;
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  @media screen and (min-width: 1140px) {
+    width: 30px;
+    height: 30px;
+  }
+
+  &Mobile {
+    width: 24px;
+    height: 24px;
+
+    @media screen and (min-width: 1140px) {
+      display: none;
+    }
+  }
+
+  &Desktop {
+    display: none;
+    width: 30px;
+    height: 30px;
+
+    @media screen and (min-width: 1140px) {
+      display: block;
+    }
+  }
+}
