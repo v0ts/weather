@@ -152,6 +152,19 @@
     height: 30px;
   }
 
+  &Fav {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+
+    fill: #ff4343;
+
+    @media screen and (min-width: 1140px) {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
   &Mobile {
     width: 24px;
     height: 24px;

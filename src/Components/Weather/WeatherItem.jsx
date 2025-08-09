@@ -1,10 +1,19 @@
+import { useState, useEffect } from "react";
 import styles from "./Weather.module.scss";
 
 import refreshIcon from "./img/refresh.svg";
-import heartIcon from "./img/heart.svg";
 import deleteIcon from "./img/delete.svg";
 
-export function WeatherItem({ data, id, deleteCard, refreshCard }) {
+import { FaRegHeart as HeartIcon } from "react-icons/fa";
+import { FaHeart as FullHeartIcon } from "react-icons/fa6";
+
+export function WeatherItem({
+  data,
+  id,
+  deleteCard,
+  refreshCard,
+}) {
+
   return (
     <li className={styles.item} id={id}>
       <div className={styles.textFlex}>
@@ -38,10 +47,7 @@ export function WeatherItem({ data, id, deleteCard, refreshCard }) {
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg
-          className={styles.icon}
-          onClick={(e) => refreshCard(id, data.city)}
-        >
+        <svg className={styles.icon} onClick={() => refreshCard(id, data.city)}>
           <use
             className={styles.iconMobile}
             href={refreshIcon}
@@ -55,22 +61,20 @@ export function WeatherItem({ data, id, deleteCard, refreshCard }) {
             height="30"
           ></use>
         </svg>
-        <svg className={styles.icon}>
-          <use
-            className={styles.iconMobile}
-            href={heartIcon}
-            width="24"
-            height="24"
-          ></use>
-          <use
-            className={styles.iconDesktop}
-            href={heartIcon}
-            width="30"
-            height="30"
-          ></use>
-        </svg>
+        {/* {isFav ? ( */}
+          {/* <FullHeartIcon className={styles.iconFav} /> */}
+        {/* ) : ( */}
+          <HeartIcon
+            className={styles.iconFav}
+            onClick={() => {
+              setFav(true);
+              setFavName(data.city);
+            }}
+          />
+        {/* )} */}
+
         <button className={styles.button}>See more</button>
-        <svg className={styles.icon} onClick={(e) => deleteCard(id)}>
+        <svg className={styles.icon} onClick={() => deleteCard(id)}>
           <use
             className={styles.iconMobile}
             href={deleteIcon}
