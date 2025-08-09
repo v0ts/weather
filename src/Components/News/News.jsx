@@ -72,7 +72,7 @@ export function News() {
 						</ul>
 					)}
 					{!loading && !error && memoizedData && memoizedData.length === 0 && (
-						<p>No news articles found.</p>
+						<p>No news articles found. (API key limit exceeded)</p>
 					)}
 					<button
 						type='button'
