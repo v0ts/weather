@@ -1,68 +1,93 @@
-import 'normalize.css'
-import { useEffect, useState } from 'react'
-import { getWeather } from './services/get-weather'
+import "normalize.css";
+import { useEffect, useState } from "react";
+import { getWeather } from "./services/get-weather";
 
-import { Footer } from './Components/Footer/Footer'
-import { Header } from './Components/Header/Header'
-import { HeaderProvider } from './Components/Header/HeaderContext'
-import { Hero } from './Components/Hero/Hero'
-import { News } from './Components/News/News'
-import { Slider } from './Components/Slider/Slider'
-import { Weather } from './Components/Weather/Weather'
+import { Header } from "./Components/Header/Header";
+import { Hero } from "./Components/Hero/Hero";
+import { Weather } from "./Components/Weather/Weather";
+import { News } from "./Components/News/News";
+import { Slider } from "./Components/Slider/Slider";
+import { Footer } from "./Components/Footer/Footer";
+import { HeaderProvider } from "./Components/Header/HeaderContext";
 
 function App() {
-	const [keyword, setKeyword] = useState(null)
-	const [weatherData, setWeatherData] = useState(null)
+  const [keyword, setKeyword] = useState(null);
+  const [weatherData, setWeatherData] = useState([]);
 
-	useEffect(() => {
-		if (keyword) {
-			getWeather(keyword).then(data => setWeatherData(data))
-		}
-	}, [keyword])
+  useEffect(() => {
+    if (
+      localStorage.getItem("weatherData") !== null &&
+      localStorage.length !== 0
+    ) {
+      const localStorageData = JSON.parse(localStorage.getItem("weatherData"));
+      setWeatherData(localStorageData);
+    }
+  }, []);
 
-	useEffect(() => {
-		if (weatherData && weatherData.length) {
-			localStorage.setItem('weatherData', JSON.stringify(weatherData))
-		}
-	}, [weatherData])
+  useEffect(() => {
+    if (keyword && keyword.trim() !== "") {
+      getWeather(keyword).then((data) => {
+        setWeatherData((prev) => {
+          const exists = prev.some((item) => item.id === data.id);
+          if (exists) return prev;
+          return [data, ...prev];
+        });
+      });
+    }
+  }, [keyword]);
 
-	const deleteCard = id => {
-		const newWeatherData = weatherData.filter(weather => weather.id !== id)
-		setWeatherData(newWeatherData)
-	}
+  useEffect(() => {
+    if (weatherData.length > 0) {
+      localStorage.setItem("weatherData", []);
+      localStorage.setItem("weatherData", JSON.stringify(weatherData));
+    } else if (weatherData.length === 0) {
+      localStorage.removeItem("weatherData");
+    }
+  }, [weatherData]);
 
-	const refreshCard = (id, keyword) => {
-		let index = null
+  const deleteCard = (id) => {
+    const newWeatherData = weatherData.filter((weather) => weather.id !== id);
+    setWeatherData(newWeatherData);
+  };
 
-		for (let i = 0; i < weatherData.length; i++) {
-			if (weatherData[i].id === id) {
-				index = i
-				break
-			}
-		}
+  const refreshCard = (id, keyword) => {
+    let index = null;
 
-		getWeather(keyword).then(data => {
-			const weatherDataCopy = [...weatherData]
-			weatherDataCopy[index] = data
+    for (let i = 0; i < weatherData.length; i++) {
+      if (weatherData[i].id === id) {
+        index = i;
+        break;
+      }
+    }
 
-			setWeatherData(weatherDataCopy)
-		})
-	}
+    getWeather(keyword).then((data) => {
+      const weatherDataCopy = [...weatherData];
+      weatherDataCopy[index] = data;
 
-	return (
-		<>
-			<HeaderProvider>
-				<Header />
-				<main>
-					<Hero setKeyword={setKeyword}></Hero>
-					{weatherData ? <Weather weatherData={weatherData}></Weather> : null}
-					<News></News>
-					<Slider></Slider>
-				</main>
-				<Footer />
-			</HeaderProvider>
-		</>
-	)
+      setWeatherData(weatherDataCopy);
+    });
+  };
+
+  return (
+    <>
+      <HeaderProvider>
+        <Header />
+        <main>
+          <Hero setKeyword={setKeyword}></Hero>
+          {weatherData.length !== 0 ? (
+            <Weather
+              weatherData={weatherData}
+              deleteCard={deleteCard}
+              refreshCard={refreshCard}
+            ></Weather>
+          ) : null}
+          {/* <News></News> */}
+          <Slider></Slider>
+        </main>
+        <Footer />
+      </HeaderProvider>
+    </>
+  );
 }
 
-export default App
+export default App;

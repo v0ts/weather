@@ -1,86 +1,72 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "../Container/Container";
-import { WeatherDetails } from "./WeatherDetails";
+import { WeatherItem } from "./WeatherItem";
+import styles from "./Weather.module.scss";
 
-export function Weather({ weatherData }) {
-  const [showDetails, setShowDetails] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [activeTab, setActiveTab] = useState('hourly');
-  
-  const regionName = new Intl.DisplayNames("en-US", { type: "region" });
-  const dayNameFormatter = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-  });
-
-  const {
-    current: {
-      name: city,
-      sys: { country },
-      main: { temp },
-    }
-  } = weatherData;
-
-  const countryName = regionName.of(country);
-  const temperature = Math.round(temp);
-
-  const date = new Date();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const dayDate = date.getDate();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  const day = dayNameFormatter.format(date);
-
-  const handleSeeMore = () => setShowDetails(!showDetails);
-  const handleFavorite = () => setIsFavorite(!isFavorite);
-  const handleRefresh = () => {};
-  const handleDelete = () => {};
+export function Weather({
+  weatherData,
+  deleteCard,
+  refreshCard,
+}) {
+  const [favorites, setFavorites] = useState({});
 
   return (
-    <section>
+    <section className={styles.weather}>
       <Container>
-        <div>
-          <div>
-            <div>
-              <h2>{city}</h2>
-              <p>{countryName}</p>
-            </div>
-            <div>
-              {hours}:{minutes}
-            </div>
-          </div>
+        <ul className={styles.wrapper}>
+          {weatherData.map((weather) => {
+            if (weather !== null) {
+              const regionName = new Intl.DisplayNames("en-US", {
+                type: "region",
+              });
+              const dayNameFormatter = new Intl.DateTimeFormat("en-US", {
+                weekday: "long",
+              });
 
-          <div>
-            <button 
-              className={activeTab === 'hourly' ? 'active' : ''}
-              onClick={() => setActiveTab('hourly')}
-            >
-              Hourly forecast
-            </button>
-            <button 
-              className={activeTab === 'weekly' ? 'active' : ''}
-              onClick={() => setActiveTab('weekly')}
-            >
-              Weekly forecast
-            </button>
-          </div>
+              const city = weather.name;
+              const country = regionName.of(weather.sys.country);
+              const temp = Math.round(weather.main.temp);
 
-          <div>
-            {dayDate}.{month}.{year}
-          </div>
-          <div>{day}</div>
+              const date = new Date();
 
-          <div>{temperature}°C</div>
+              const hours = date.getHours().toString().padStart(2, "0");
+              const minutes = date.getMinutes().toString().padStart(2, "0");
 
-          <div>
-            <button onClick={handleRefresh}>↻</button>
-            <button className={isFavorite ? 'active' : ''} onClick={handleFavorite}>♥</button>
-            <button onClick={handleDelete}>🗑</button>
-            <button onClick={handleSeeMore}>See more</button>
-          </div>
-        </div>
+              const dayDate = date.getDate();
+              const month = date.getMonth();
+              const year = date.getFullYear();
+              const day = dayNameFormatter.format(date);
 
-        {showDetails && <WeatherDetails weatherData={weatherData} />}
+              const icon = weather.weather[0].icon;
+              const iconSrc = `https://openweathermap.org/img/wn/${icon}@4x.png`;
+
+              const id = weather.id;
+
+              return (
+                <WeatherItem
+                  key={id}
+                  id={id}
+                  deleteCard={deleteCard}
+                  refreshCard={refreshCard}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  data={{
+                    city,
+                    country,
+                    temp,
+                    hours,
+                    minutes,
+                    dayDate,
+                    month,
+                    year,
+                    day,
+                    iconSrc,
+                  }}
+                />
+              );
+            }
+          })}
+        </ul>
       </Container>
     </section>
   );
