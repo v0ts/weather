@@ -53,7 +53,7 @@ export function Hero({ setKeyword }) {
                 <use href={searchIcon} width="9" height="9"></use>
               </svg>
               <svg className={styles.iconDesktop} >
-                <use href={searchIcon} width="9" height="9"></use>
+                <use href={searchIcon} width="25" height="25"></use>
               </svg>
             </button>
           </form>
