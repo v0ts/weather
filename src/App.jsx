@@ -12,11 +12,13 @@ import { HeaderProvider } from "./Components/Header/HeaderContext";
 
 function App() {
   const [keyword, setKeyword] = useState(null);
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
     if (keyword) {
-      getWeather(keyword).then((data) => setWeatherData(data));
+      getWeather(keyword).then((data) => {
+        setWeatherData((prev) => [data, ...prev]);
+      });
     }
   }, [keyword]);
 
@@ -26,7 +28,9 @@ function App() {
         <Header />
         <main>
           <Hero setKeyword={setKeyword}></Hero>
-          {weatherData ? <Weather weatherData={weatherData}></Weather> : null}
+          {weatherData.length !== 0 ? (
+            <Weather weatherData={weatherData}></Weather>
+          ) : null}
           <News></News>
           <Slider></Slider>
         </main>
