@@ -61,17 +61,13 @@ export function WeatherItem({
             height="30"
           ></use>
         </svg>
-        {/* {isFav ? ( */}
-          {/* <FullHeartIcon className={styles.iconFav} /> */}
-        {/* ) : ( */}
-          <HeartIcon
-            className={styles.iconFav}
-            onClick={() => {
-              setFav(true);
-              setFavName(data.city);
-            }}
-          />
-        {/* )} */}
+        <HeartIcon
+          className={styles.iconFav}
+          onClick={() => {
+            setFav(true);
+            setFavName(data.city);
+          }}
+        />
 
         <button className={styles.button}>See more</button>
         <svg className={styles.icon} onClick={() => deleteCard(id)}>
