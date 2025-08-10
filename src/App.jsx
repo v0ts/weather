@@ -82,7 +82,7 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          {/* <News></News> */}
+          <News></News> 
           <Slider></Slider>
         </main>
         <Footer />
