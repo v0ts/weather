@@ -1,139 +1,137 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import styles from "./Weather.module.scss";
+import styles from './Weather.module.scss'
 
-import refreshIcon from "./img/refresh.svg";
-import deleteIcon from "./img/delete.svg";
+import refreshIcon from './img/refresh.svg'
+import deleteIcon from './img/delete.svg'
 
-import { FaRegHeart as HeartIcon } from "react-icons/fa";
-import { FaHeart as FullHeartIcon } from "react-icons/fa6";
+import { FaRegHeart as HeartIcon } from 'react-icons/fa'
+import { FaHeart as FullHeartIcon } from 'react-icons/fa6'
 
 export function WeatherItem({
-  data,
-  id,
-  deleteCard,
-  refreshCard,
+	data,
+	id,
+	deleteCard,
+	refreshCard,
 
-  onShowDetails,
-  onTabChange,
-  
-    isFav,
-  weatherData,
-  setWeatherData,
-  currWeather,
+	onShowDetails,
+	onTabChange,
+
+	isFav,
+	weatherData,
+	setWeatherData,
+	currWeather,
 }) {
-  const [isFavCard, setFavCard] = useState(isFav);
+	const [isFavCard, setFavCard] = useState(isFav)
 
+	return (
+		<li className={styles.item} id={id}>
+			<div className={styles.textFlex}>
+				<p className={styles.text}>{data.city}</p>
+				<p className={styles.text}>{data.country}</p>
+			</div>
 
-  return (
-    <li className={styles.item} id={id}>
-      <div className={styles.textFlex}>
-        <p className={styles.text}>{data.city}</p>
-        <p className={styles.text}>{data.country}</p>
-      </div>
+			<p className={styles.time}>
+				{data.hours}:{data.minutes}
+			</p>
 
-      <p className={styles.time}>
-        {data.hours}:{data.minutes}
-      </p>
+			<ul className={styles.buttonsList}>
+				<li>
+					<button
+						className={styles.button}
+						onClick={() => onTabChange('hourly')}
+					>
+						Hourly forecast
+					</button>
+				</li>
+				<li>
+					<button
+						className={styles.button}
+						onClick={() => onTabChange('weekly')}
+					>
+						Weekly forecast
+					</button>
+				</li>
+			</ul>
 
-      <ul className={styles.buttonsList}>
-        <li>
-          <button 
-            className={styles.button}
-            onClick={() => onTabChange('hourly')}
-          >
-            Hourly forecast
-          </button>
-        </li>
-        <li>
-          <button 
-            className={styles.button}
-            onClick={() => onTabChange('weekly')}
-          >
-            Weekly forecast
-          </button>
+			<div className={styles.dateFlex}>
+				<p className={styles.text}>
+					{data.dayDate}.{data.month}.{data.year}
+				</p>
+				<div className={styles.separator}></div>
+				<p className={styles.text}>{data.day}</p>
+			</div>
 
-        </li>
-      </ul>
+			<img src={data.iconSrc} alt='weather icon' className={styles.img} />
 
-      <div className={styles.dateFlex}>
-        <p className={styles.text}>
-          {data.dayDate}.{data.month}.{data.year}
-        </p>
-        <div className={styles.separator}></div>
-        <p className={styles.text}>{data.day}</p>
-      </div>
+			<h2 className={styles.temp}>{data.temp}℃</h2>
 
-      <img src={data.iconSrc} alt="weather icon" className={styles.img} />
+			<div className={styles.iconsFlex}>
+				<svg
+					className={styles.icon}
+					onClick={() => refreshCard(id, data.city, isFav)}
+				>
+					<use
+						className={styles.iconMobile}
+						href={refreshIcon}
+						width='24'
+						height='24'
+					></use>
+					<use
+						className={styles.iconDesktop}
+						href={refreshIcon}
+						width='30'
+						height='30'
+					></use>
+				</svg>
+				{isFavCard ? (
+					<FullHeartIcon
+						className={styles.iconFav}
+						onClick={() => {
+							setFavCard(false)
 
-      <h2 className={styles.temp}>{data.temp}℃</h2>
+							const newWeatherData = weatherData.map(weather =>
+								weather.id === currWeather.id
+									? { ...weather, isFav: false }
+									: weather
+							)
 
-      <div className={styles.iconsFlex}>
-        <svg
-          className={styles.icon}
-          onClick={() => refreshCard(id, data.city, isFav)}
-        >
-          <use
-            className={styles.iconMobile}
-            href={refreshIcon}
-            width="24"
-            height="24"
-          ></use>
-          <use
-            className={styles.iconDesktop}
-            href={refreshIcon}
-            width="30"
-            height="30"
-          ></use>
-        </svg>
-        {isFavCard ? (
-          <FullHeartIcon
-            className={styles.iconFav}
-            onClick={() => {
-              setFavCard(false);
+							setWeatherData(newWeatherData)
+						}}
+					/>
+				) : (
+					<HeartIcon
+						className={styles.iconFav}
+						onClick={() => {
+							setFavCard(true)
 
-              const newWeatherData = weatherData.map((weather) =>
-                weather.id === currWeather.id
-                  ? { ...weather, isFav: false }
-                  : weather
-              );
+							const newWeatherData = weatherData.map(weather =>
+								weather.id === currWeather.id
+									? { ...weather, isFav: true }
+									: weather
+							)
 
-              setWeatherData(newWeatherData);
-            }}
-          />
-        ) : (
-          <HeartIcon
-            className={styles.iconFav}
-   onClick={() => {
-              setFavCard(true);
+							setWeatherData(newWeatherData)
+						}}
+					/>
+				)}
 
-              const newWeatherData = weatherData.map((weather) =>
-                weather.id === currWeather.id
-                  ? { ...weather, isFav: true }
-                  : weather
-              );
-
-              setWeatherData(newWeatherData);
-            }}
-          />
-        )}
-
-        <button className={styles.button}>See more</button>
-        <svg className={styles.icon} onClick={() => deleteCard(id)}>
-          <use
-            className={styles.iconMobile}
-            href={deleteIcon}
-            width="24"
-            height="24"
-          ></use>
-          <use
-            className={styles.iconDesktop}
-            href={deleteIcon}
-            width="30"
-            height="30"
-          ></use>
-        </svg>
-      </div>
-    </li>
-  );
+				<button className={styles.button}>See more</button>
+				<svg className={styles.icon} onClick={() => deleteCard(id)}>
+					<use
+						className={styles.iconMobile}
+						href={deleteIcon}
+						width='24'
+						height='24'
+					></use>
+					<use
+						className={styles.iconDesktop}
+						href={deleteIcon}
+						width='30'
+						height='30'
+					></use>
+				</svg>
+			</div>
+		</li>
+	)
 }
