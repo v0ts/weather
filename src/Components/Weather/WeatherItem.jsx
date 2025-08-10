@@ -25,7 +25,7 @@ export function WeatherItem({
 	const [isFavCard, setFavCard] = useState(isFav)
 
 	return (
-		<li className={styles.item} id={id}>
+		<li className={styles.item}>
 			<div className={styles.textFlex}>
 				<p className={styles.text}>{data.city}</p>
 				<p className={styles.text}>{data.country}</p>
