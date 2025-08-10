@@ -19,17 +19,17 @@ export function WeatherItem({
 }) {
   const [isFavCard, setFavCard] = useState(isFav);
 
-  useEffect(() => {
-    const newWeatherData = [...weatherData];
+  // useEffect(() => {
+  //   const newWeatherData = [...weatherData];
 
-    newWeatherData.map((weather) => {
-      if (weather.id === currWeather.id) {
-        weather.isFav = !weather.isFav;
-      }
-    });
+  //   newWeatherData.map((weather) => {
+  //     if (weather.id === currWeather.id) {
+  //       weather.isFav = !weather.isFav;
+  //     }
+  //   });
 
-    setWeatherData(newWeatherData);
-  }, [isFavCard]);
+  //   setWeatherData(newWeatherData);
+  // }, [isFavCard]);
 
   return (
     <li className={styles.item} id={id}>
@@ -64,7 +64,10 @@ export function WeatherItem({
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg className={styles.icon} onClick={() => refreshCard(id, data.city, isFav)}>
+        <svg
+          className={styles.icon}
+          onClick={() => refreshCard(id, data.city, isFav)}
+        >
           <use
             className={styles.iconMobile}
             href={refreshIcon}
@@ -83,6 +86,14 @@ export function WeatherItem({
             className={styles.iconFav}
             onClick={() => {
               setFavCard(false);
+
+              const newWeatherData = weatherData.map((weather) =>
+                weather.id === currWeather.id
+                  ? { ...weather, isFav: false }
+                  : weather
+              );
+
+              setWeatherData(newWeatherData);
             }}
           />
         ) : (
@@ -90,6 +101,14 @@ export function WeatherItem({
             className={styles.iconFav}
             onClick={() => {
               setFavCard(true);
+
+              const newWeatherData = weatherData.map((weather) =>
+                weather.id === currWeather.id
+                  ? { ...weather, isFav: true }
+                  : weather
+              );
+
+              setWeatherData(newWeatherData);
             }}
           />
         )}
