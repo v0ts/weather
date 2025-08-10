@@ -15,20 +15,20 @@ function App() {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          const data = await getWeatherByCoords(latitude, longitude);
-          if (data) {
-            setWeatherData([{ ...data, id: Date.now() }]);
-          }
-        },
-        (error) => {
-          console.log("Геолокація недоступна:", error);
-        }
-      );
-    }
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(
+    //     async (position) => {
+    //       const { latitude, longitude } = position.coords;
+    //       const data = await getWeatherByCoords(latitude, longitude);
+    //       if (data) {
+    //         setWeatherData([{ ...data, id: Date.now() }]);
+    //       }
+    //     },
+    //     (error) => {
+    //       console.log("Геолокація недоступна:", error);
+    //     }
+    //   );
+    // }
 
     if (
       localStorage.getItem("weatherData") !== null &&
@@ -36,16 +36,20 @@ function App() {
     ) {
       const localStorageData = JSON.parse(localStorage.getItem("weatherData"));
       const onlyFavs = localStorageData.filter((weather) => weather.isFav);
+
+      setWeatherData(onlyFavs);
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (keyword && keyword.trim() !== "") {
       getWeather(keyword).then((data) => {
         setWeatherData((prev) => {
+          if (data === null) {
+            return [...prev];
+          }
           const exists = prev.some((item) => item.id === data.current.id);
-          if (exists) return prev;
-          if (data === null) return prev;
+          if (exists) return [...prev];
 
           return [{ ...data.current, isFav: false }, ...prev];
         });
@@ -54,29 +58,19 @@ function App() {
   }, [keyword]);
 
   useEffect(() => {
-    if (keyword && keyword.trim() !== "") {
-      getWeather(keyword).then((data) => {
-        setWeatherData((prev) => {
-          const exists = prev.some((item) => item.id === data.current.id);
-          if (exists) return prev;
-          return [{ ...data.current, isFav: false }, ...prev];
-        });
-      });
-    }
-  }, [keyword]);
-
-  useEffect(() => {
-    if (weatherData.length > 0) {
+    if (weatherData?.length > 0) {
       localStorage.setItem("weatherData", []);
       localStorage.setItem("weatherData", JSON.stringify(weatherData));
-    } else if (weatherData.length === 0) {
+    } else if (weatherData?.length === 0) {
       localStorage.removeItem("weatherData");
     }
   }, [weatherData]);
 
   const deleteCard = (id) => {
     const newWeatherData = weatherData.filter((weather) => weather.id !== id);
+    
     setWeatherData(newWeatherData);
+    
   };
 
   const refreshCard = (id, keyword, isFav) => {
@@ -103,7 +97,7 @@ function App() {
         <Header />
         <main>
           <Hero setKeyword={setKeyword}></Hero>
-          {weatherData.length !== 0 ? (
+          {weatherData.length > 0 ? (
             <Weather
               weatherData={weatherData}
               setWeatherData={setWeatherData}
@@ -111,7 +105,7 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          <News></News>
+          {/* <News></News> */}
           <Slider></Slider>
         </main>
         <Footer />

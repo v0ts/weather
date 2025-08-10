@@ -8,8 +8,9 @@ export const getWeather = async (keyword) => {
       `${BASE_URL}/weather?q=${keyword}&appid=${API_KEY}&units=metric`
     );
     const data = await res.json();
+    // console.log(data);
     
-    if (!res.ok || data.cod !== 200) {
+    if (data.cod === "404") {
       return null;
     }
 
