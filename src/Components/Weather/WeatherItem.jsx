@@ -19,18 +19,6 @@ export function WeatherItem({
 }) {
   const [isFavCard, setFavCard] = useState(isFav);
 
-  // useEffect(() => {
-  //   const newWeatherData = [...weatherData];
-
-  //   newWeatherData.map((weather) => {
-  //     if (weather.id === currWeather.id) {
-  //       weather.isFav = !weather.isFav;
-  //     }
-  //   });
-
-  //   setWeatherData(newWeatherData);
-  // }, [isFavCard]);
-
   return (
     <li className={styles.item} id={id}>
       <div className={styles.textFlex}>
