@@ -1,0 +1,127 @@
+.footer {
+    background-color: #FFB36C;
+    padding: 40px 0 20px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #666;
+    }
+    
+    :global(.container) {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 80px;
+    }
+  }
+  
+  .footerList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 80px;
+    width: 100%;
+  }
+  
+  .brandSection {
+    flex: 0 0 auto;
+    width: 200px;
+  }
+  
+  .logo {
+    .logoImage {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+  
+  .addressSection {
+    flex: 0 0 auto;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .contactSection {
+    flex: 0 0 auto;
+    width: 200px;
+    text-align: right;
+  }
+  
+  .sectionTitle {
+    font-family: Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    margin: 0 0 15px 0;
+  }
+  
+  .address {
+    p {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      color: #000;
+      margin: 5px 0;
+    }
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+  }
+  
+  .socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .socialIconImage {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  
+  @media (max-width: 768px) {
+    .footerList {
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+    }
+    
+    .brandSection,
+    .addressSection,
+    .contactSection {
+      text-align: center;
+      width: 100%;
+    }
+    
+    .socialIcons {
+      justify-content: center;
+    }
+    
+    .logo {
+      .logoImage {
+        height: 50px;
+      }
+    }
+  }
