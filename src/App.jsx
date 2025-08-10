@@ -37,9 +37,20 @@ function App() {
 			const localStorageData = JSON.parse(localStorage.getItem('weatherData'))
 			const onlyFavs = localStorageData.filter(weather => weather.isFav)
 
-			setWeatherData(onlyFavs)
-		}
-	}, [])
+  useEffect(() => {
+    if (keyword && keyword.trim() !== "") {
+      getWeather(keyword).then((data) => {
+        setWeatherData((prev) => {
+          const exists = prev.some((item) => item.id === data.current.id);
+          if (exists) return prev;
+          if (data === null) return prev;
+
+          return [{ ...data.current, isFav: false }, ...prev];
+        });
+      });
+    }
+  }, [keyword]);
+
 
 	useEffect(() => {
 		if (keyword && keyword.trim() !== '') {
