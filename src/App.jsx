@@ -20,7 +20,9 @@ function App() {
       localStorage.length !== 0
     ) {
       const localStorageData = JSON.parse(localStorage.getItem("weatherData"));
-      setWeatherData(localStorageData);
+      const onlyFavs = localStorageData.filter(weather => weather.isFav);
+
+      setWeatherData(onlyFavs);
     }
   }, []);
 
@@ -62,7 +64,7 @@ function App() {
 
     getWeather(keyword).then((data) => {
       const weatherDataCopy = [...weatherData];
-      weatherDataCopy[index] = {...data.current, isFav};
+      weatherDataCopy[index] = { ...data.current, isFav };
 
       setWeatherData(weatherDataCopy);
     });
@@ -82,7 +84,7 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          <News></News> 
+          {/* <News></News> */}
           <Slider></Slider>
         </main>
         <Footer />
