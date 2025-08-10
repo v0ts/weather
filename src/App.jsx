@@ -32,6 +32,8 @@ function App() {
         setWeatherData((prev) => {
           const exists = prev.some((item) => item.id === data.current.id);
           if (exists) return prev;
+          if (data === null) return prev;
+
           return [{ ...data.current, isFav: false }, ...prev];
         });
       });
