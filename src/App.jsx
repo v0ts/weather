@@ -28,9 +28,9 @@ function App() {
     if (keyword && keyword.trim() !== "") {
       getWeather(keyword).then((data) => {
         setWeatherData((prev) => {
-          const exists = prev.some((item) => item.id === data.id);
+          const exists = prev.some((item) => item.id === data.current.id);
           if (exists) return prev;
-          return [data, ...prev];
+          return [{ ...data.current, isFav: false }, ...prev];
         });
       });
     }
@@ -50,7 +50,7 @@ function App() {
     setWeatherData(newWeatherData);
   };
 
-  const refreshCard = (id, keyword) => {
+  const refreshCard = (id, keyword, isFav) => {
     let index = null;
 
     for (let i = 0; i < weatherData.length; i++) {
@@ -62,7 +62,7 @@ function App() {
 
     getWeather(keyword).then((data) => {
       const weatherDataCopy = [...weatherData];
-      weatherDataCopy[index] = data;
+      weatherDataCopy[index] = {...data.current, isFav};
 
       setWeatherData(weatherDataCopy);
     });
@@ -77,6 +77,7 @@ function App() {
           {weatherData.length !== 0 ? (
             <Weather
               weatherData={weatherData}
+              setWeatherData={setWeatherData}
               deleteCard={deleteCard}
               refreshCard={refreshCard}
             ></Weather>
