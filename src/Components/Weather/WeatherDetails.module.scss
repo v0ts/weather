@@ -1,0 +1,231 @@
+.weatherDetails {
+  margin-top: 30px;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #212529;
+  }
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #e9ecef;
+    color: #495057;
+  }
+}
+
+.errorMessage {
+  text-align: center;
+  color: #6c757d;
+  font-size: 16px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.metricCard {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.metricIcon {
+  font-size: 24px;
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.metricInfo {
+  flex: 1;
+}
+
+.metricLabel {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0 0 5px 0;
+  font-weight: 500;
+}
+
+.metricValue {
+  font-size: 18px;
+  font-weight: bold;
+  color: #212529;
+  margin: 0;
+}
+
+.forecastSection {
+  margin-bottom: 40px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.forecastTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: #212529;
+  margin: 0 0 20px 0;
+}
+
+.hourlyChart {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.chart {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.timeLabels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin-left: 30px;
+}
+
+.timeLabel {
+  font-size: 12px;
+  color: #6c757d;
+  text-align: center;
+  flex: 1;
+}
+
+.weeklyForecast {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dailyItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.dailyLeft {
+  flex: 1;
+}
+
+.dailyCenter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.dailyRight {
+  flex: 1;
+  text-align: right;
+}
+
+.dailyDate {
+  font-size: 14px;
+  color: #212529;
+  font-weight: 500;
+}
+
+.dailyTemp {
+  font-size: 16px;
+  font-weight: bold;
+  color: #212529;
+}
+
+.dailyWeather {
+  font-size: 14px;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.weatherIcon {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 768px) {
+  .weatherDetails {
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .metricCard {
+    padding: 15px;
+  }
+  
+  .timeLabels {
+    padding: 0 10px;
+  }
+  
+  .timeLabel {
+    font-size: 10px;
+  }
+  
+  .dailyItem {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .dailyRight {
+    text-align: center;
+  }
+}
