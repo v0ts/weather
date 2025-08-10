@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Weather.module.scss";
 
 import refreshIcon from "./img/refresh.svg";
@@ -7,14 +7,29 @@ import deleteIcon from "./img/delete.svg";
 import { FaRegHeart as HeartIcon } from "react-icons/fa";
 import { FaHeart as FullHeartIcon } from "react-icons/fa6";
 
-export function WeatherItem({ data, id, deleteCard, refreshCard }) {
-  const [isFav, setFav] = useState(false);
+export function WeatherItem({
+  data,
+  id,
+  deleteCard,
+  refreshCard,
+  isFav,
+  weatherData,
+  setWeatherData,
+  currWeather,
+}) {
+  const [isFavCard, setFavCard] = useState(isFav);
 
   useEffect(() => {
-    if (isFav) {
-      console.log(0);
-    }
-  }, [isFav]);
+    const newWeatherData = [...weatherData];
+
+    newWeatherData.map((weather) => {
+      if (weather.id === currWeather.id) {
+        weather.isFav = !weather.isFav;
+      }
+    });
+
+    setWeatherData(newWeatherData);
+  }, [isFavCard]);
 
   return (
     <li className={styles.item} id={id}>
@@ -49,7 +64,7 @@ export function WeatherItem({ data, id, deleteCard, refreshCard }) {
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg className={styles.icon} onClick={() => refreshCard(id, data.city)}>
+        <svg className={styles.icon} onClick={() => refreshCard(id, data.city, isFavCard)}>
           <use
             className={styles.iconMobile}
             href={refreshIcon}
@@ -63,13 +78,18 @@ export function WeatherItem({ data, id, deleteCard, refreshCard }) {
             height="30"
           ></use>
         </svg>
-        {isFav ? (
-          <FullHeartIcon className={styles.iconFav} />
+        {isFavCard ? (
+          <FullHeartIcon
+            className={styles.iconFav}
+            onClick={() => {
+              setFavCard(false);
+            }}
+          />
         ) : (
           <HeartIcon
             className={styles.iconFav}
             onClick={() => {
-              setFav(true);
+              setFavCard(true);
             }}
           />
         )}

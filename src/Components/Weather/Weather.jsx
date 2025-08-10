@@ -1,15 +1,8 @@
-import { useState, useEffect } from "react";
 import { Container } from "../Container/Container";
 import { WeatherItem } from "./WeatherItem";
 import styles from "./Weather.module.scss";
 
-export function Weather({
-  weatherData,
-  deleteCard,
-  refreshCard,
-}) {
-  const [favorites, setFavorites] = useState({});
-
+export function Weather({ weatherData, setWeatherData, deleteCard, refreshCard }) {
   return (
     <section className={styles.weather}>
       <Container>
@@ -42,14 +35,18 @@ export function Weather({
 
               const id = weather.id;
 
+              let isFav = weather.isFav;
+
               return (
                 <WeatherItem
                   key={id}
                   id={id}
                   deleteCard={deleteCard}
                   refreshCard={refreshCard}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
+                  isFav={isFav}
+                  weatherData={weatherData}
+                  setWeatherData={setWeatherData}
+                  currWeather={weather}
                   data={{
                     city,
                     country,
