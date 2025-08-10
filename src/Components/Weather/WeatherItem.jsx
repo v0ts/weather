@@ -64,7 +64,7 @@ export function WeatherItem({
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg className={styles.icon} onClick={() => refreshCard(id, data.city, isFavCard)}>
+        <svg className={styles.icon} onClick={() => refreshCard(id, data.city, isFav)}>
           <use
             className={styles.iconMobile}
             href={refreshIcon}
