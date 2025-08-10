@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import styles from "./Weather.module.scss";
 
 import refreshIcon from "./img/refresh.svg";
@@ -12,12 +13,17 @@ export function WeatherItem({
   id,
   deleteCard,
   refreshCard,
-  isFav,
+
+  onShowDetails,
+  onTabChange,
+  
+    isFav,
   weatherData,
   setWeatherData,
   currWeather,
 }) {
   const [isFavCard, setFavCard] = useState(isFav);
+
 
   return (
     <li className={styles.item} id={id}>
@@ -32,10 +38,21 @@ export function WeatherItem({
 
       <ul className={styles.buttonsList}>
         <li>
-          <button className={styles.button}>Hourly forecast</button>
+          <button 
+            className={styles.button}
+            onClick={() => onTabChange('hourly')}
+          >
+            Hourly forecast
+          </button>
         </li>
         <li>
-          <button className={styles.button}>Weekly forecast</button>
+          <button 
+            className={styles.button}
+            onClick={() => onTabChange('weekly')}
+          >
+            Weekly forecast
+          </button>
+
         </li>
       </ul>
 
@@ -87,7 +104,7 @@ export function WeatherItem({
         ) : (
           <HeartIcon
             className={styles.iconFav}
-            onClick={() => {
+   onClick={() => {
               setFavCard(true);
 
               const newWeatherData = weatherData.map((weather) =>

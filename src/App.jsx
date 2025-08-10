@@ -15,6 +15,20 @@ function App() {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const data = await getWeatherByCoords(latitude, longitude);
+          if (data) {
+            setWeatherData([{ ...data, id: Date.now() }]);
+          }
+        },
+        (error) => {
+          console.log("Геолокація недоступна:", error);
+        }
+      );
+
     if (
       localStorage.getItem("weatherData") !== null &&
       localStorage.length !== 0
@@ -23,6 +37,7 @@ function App() {
       const onlyFavs = localStorageData.filter(weather => weather.isFav);
 
       setWeatherData(onlyFavs);
+
     }
   }, []);
 
@@ -53,6 +68,7 @@ function App() {
   };
 
   const refreshCard = (id, keyword, isFav) => {
+
     let index = null;
 
     for (let i = 0; i < weatherData.length; i++) {
@@ -61,6 +77,7 @@ function App() {
         break;
       }
     }
+
 
     getWeather(keyword).then((data) => {
       const weatherDataCopy = [...weatherData];
@@ -84,7 +101,7 @@ function App() {
               refreshCard={refreshCard}
             ></Weather>
           ) : null}
-          {/* <News></News> */}
+                    <News></News>
           <Slider></Slider>
         </main>
         <Footer />
