@@ -1,10 +1,13 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React from 'react';
 
 export function Weather() {
   return (
     <></>
 =======
+=======
+>>>>>>> Stashed changes
 import { useState } from "react";
 import { Container } from "../Container/Container";
 import { WeatherDetails } from "./WeatherDetails";
