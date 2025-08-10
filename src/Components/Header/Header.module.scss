@@ -9,14 +9,30 @@
 }
 
 .nav {
-	display: flex;
+	display: none;
 	margin-right: auto;
+
+	@media screen and (min-width: 768px) {
+		display: flex;
+	}
 }
 
 .logo {
 	max-width: 82px;
 	max-height: 56px;
 	margin-right: 111px;
+
+	@media screen and (min-width: 768px) {
+		max-width: 54px;
+		max-height: 36px;
+		margin-right: 57px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		max-width: 82px;
+		max-height: 56px;
+		margin-right: 111px;
+	}
 }
 
 .list {
@@ -38,6 +54,14 @@
 	text-wrap-mode: nowrap;
 
 	transition: color 250ms;
+
+	@media screen and (min-width: 768px) {
+		font-size: 10px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		font-size: 12px;
+	}
 }
 
 .link:hover {
@@ -45,21 +69,25 @@
 }
 
 .signup {
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	gap: 27px;
+
+	@media screen and (min-width: 768px) {
+		display: flex;
+	}
 }
 
 .button {
 	color: #000;
 	font-family: 'Montserrat Alternates';
 	font-size: 12px;
+	font-weight: 400;
 	font-style: normal;
-	font-weight: 500;
 	line-height: normal;
-
-	padding: 10px 20px;
+	font-size: 10px;
+	padding: 8px 16px;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
@@ -70,6 +98,16 @@
 	transform: scale(1);
 
 	transition: transform 250ms ease-out;
+
+	@media screen and (min-width: 768px) {
+		padding: 6px 16px;
+		font-weight: 500;
+	}
+
+	@media screen and (min-width: 1140px) {
+		font-size: 12px;
+		padding: 10px 20px;
+	}
 }
 
 .button:hover {
@@ -81,6 +119,123 @@
 	max-height: 50px;
 
 	cursor: pointer;
+
+	@media screen and (min-width: 768px) {
+		max-width: 40px;
+		max-height: 40px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		max-width: 50px;
+		max-height: 50px;
+	}
+}
+
+.shownMobile {
+	display: flex;
+
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+}
+
+.hiddenPC {
+	display: flex;
+
+	@media screen and (min-width: 1140px) {
+		display: none;
+	}
+}
+
+.navMobile {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+
+	@media screen and (min-width: 768px) {
+		display: none;
+	}
+}
+
+.logoMobile {
+	width: 44px;
+	height: 32px;
+}
+
+.buttonMobile {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	justify-content: center;
+
+	color: #000;
+	font-family: 'Montserrat Alternates';
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.buttonMobile:hover {
+	color: color;
+	background-color: white;
+}
+
+.imageMobile {
+	max-width: 13px;
+	max-height: 13px;
+
+	transition: all 250ms;
+}
+
+.mobileMenu {
+	background: #e6e6e6;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	top: 50px;
+	left: 0;
+	right: 0;
+	padding: 30px;
+}
+
+.mobileList {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	margin-right: 156px;
+}
+
+.mobileLink {
+	color: #000;
+	font-family: 'Montserrat Alternates';
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.mobileSignup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.mobileImage {
+	width: 40px;
+	height: 40px;
+}
+
+.transformed {
+	transform: rotate(-90deg);
+}
+
+.isHidden {
+	display: none;
 }
 
 .backdrop {
@@ -101,7 +256,7 @@
 }
 
 .modal {
-	// max-width: 600px;
+	max-width: 300px;
 	border: 1px solid black;
 	border-radius: 25px;
 	padding: 28px 80px;
@@ -109,23 +264,53 @@
 
 	transform: translate(50% 50%);
 
+	position: relative;
+
 	z-index: 99;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	@media screen and (min-width: 768px) {
+		max-width: 400px;
+		padding: 30px 45px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		max-width: 600px;
+		padding: 20px 80px;
+	}
+}
+
+.modalClose {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+
+	width: 15px;
+	height: 15px;
 }
 
 .modalTitle {
 	color: #000;
 	font-family: 'Montserrat Alternates';
-	font-size: 28px;
+	font-size: 20px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 	text-align: center;
 
-	margin-bottom: 40px;
+	margin-bottom: 30px;
+
+	@media screen and (min-width: 768px) {
+		font-size: 28px;
+		margin-bottom: 17px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		margin-bottom: 40px;
+	}
 }
 
 .modalForm,
@@ -137,12 +322,30 @@
 
 .modalForm {
 	align-items: center;
-	margin-bottom: 15px;
+	margin-bottom: 30px;
+
+	@media screen and (min-width: 768px) {
+		margin-bottom: 17px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		margin-bottom: 15px;
+	}
 }
 
 .modalList {
-	gap: 30px;
-	margin-bottom: 35px;
+	gap: 25px;
+	margin-bottom: 30px;
+
+	@media screen and (min-width: 768px) {
+		gap: 15px;
+		margin-bottom: 25px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		gap: 30px;
+		margin-bottom: 35px;
+	}
 }
 
 .modalItem {
@@ -152,35 +355,52 @@
 .modalLabel {
 	color: #000;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 12px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 
 	margin-bottom: 15px;
+
+	@media screen and (min-width: 1140px) {
+		font-size: 14px;
+	}
 }
 
 .modalInput {
 	color: #ababab;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 12px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
 
 	width: 100%;
-	min-width: 440px;
-	max-width: 440px;
-	max-height: 50px;
+	min-width: 243px;
+	max-width: 243px;
+	max-height: 40px;
 
 	border-radius: 10px;
 	background: #e4e4e4;
 
-	padding: 20px 17px;
+	padding: 12px 20px;
 
 	border: 1px solid transparent;
 
 	transition: border 500ms;
+
+	@media screen and (min-width: 768px) {
+		max-height: 50px;
+		min-width: 310px;
+		max-width: 310px;
+		padding: 12px 20px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		font-size: 14px;
+		padding: 20px 17px;
+		max-width: 440px;
+	}
 }
 
 .modalInput:hover,
@@ -191,24 +411,37 @@
 .modalButton {
 	color: #000;
 	font-family: Montserrat;
-	font-size: 14px;
+	font-size: 12px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
+	text-align: center;
+	text-wrap: nowrap;
 
 	padding: 10px 30px;
 
 	border-radius: 10px;
 	background: #ffb36c;
 
-	max-width: 114px;
-	max-height: 37px;
+	max-width: 107px;
+	max-height: 35px;
 
 	justify-content: center;
 	align-items: center;
 
 	transform: scale(1);
 	transition: transform 250ms;
+
+	@media screen and (min-width: 768px) {
+		max-width: 107px;
+		max-height: 35px;
+	}
+
+	@media screen and (min-width: 1140px) {
+		max-width: 114px;
+		max-height: 37px;
+		font-size: 14px;
+	}
 }
 
 .modalButton:hover,
@@ -219,16 +452,20 @@
 .modalFooter {
 	color: #000;
 	font-family: Montserrat;
-	font-size: 10px;
+	font-size: 8px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
+
+	@media screen and (min-width: 1140px) {
+		font-size: 10px;
+	}
 }
 
 .modalLink {
 	color: #000;
 	font-family: Montserrat;
-	font-size: 10px;
+	font-size: 8px;
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
@@ -242,13 +479,17 @@
 	cursor: pointer;
 
 	transition: color 250ms;
+
+	@media screen and (min-width: 1140px) {
+		font-size: 10px;
+	}
 }
 
 .modalLink:hover,
 .modalLink:focus {
-	color: #FFB36C;
+	color: #ffb36c;
 }
 
-.wrong { 
+.wrong {
 	border: 1px solid red;
 }

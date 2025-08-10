@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import styles from "./Weather.module.scss";
 
 import refreshIcon from "./img/refresh.svg";
@@ -12,10 +13,17 @@ export function WeatherItem({
   id,
   deleteCard,
   refreshCard,
+
   onShowDetails,
   onTabChange,
+  
+    isFav,
+  weatherData,
+  setWeatherData,
+  currWeather,
 }) {
-  const [isFav, setIsFav] = useState(false);
+  const [isFavCard, setFavCard] = useState(isFav);
+
 
   return (
     <li className={styles.item} id={id}>
@@ -44,6 +52,7 @@ export function WeatherItem({
           >
             Weekly forecast
           </button>
+
         </li>
       </ul>
 
@@ -60,7 +69,10 @@ export function WeatherItem({
       <h2 className={styles.temp}>{data.temp}℃</h2>
 
       <div className={styles.iconsFlex}>
-        <svg className={styles.icon} onClick={() => refreshCard(id, data.city)}>
+        <svg
+          className={styles.icon}
+          onClick={() => refreshCard(id, data.city, isFav)}
+        >
           <use
             className={styles.iconMobile}
             href={refreshIcon}
@@ -74,24 +86,39 @@ export function WeatherItem({
             height="30"
           ></use>
         </svg>
-        {isFav ? (
+        {isFavCard ? (
           <FullHeartIcon
             className={styles.iconFav}
-            onClick={() => setIsFav(false)}
+            onClick={() => {
+              setFavCard(false);
+
+              const newWeatherData = weatherData.map((weather) =>
+                weather.id === currWeather.id
+                  ? { ...weather, isFav: false }
+                  : weather
+              );
+
+              setWeatherData(newWeatherData);
+            }}
           />
         ) : (
           <HeartIcon
             className={styles.iconFav}
-            onClick={() => setIsFav(true)}
+   onClick={() => {
+              setFavCard(true);
+
+              const newWeatherData = weatherData.map((weather) =>
+                weather.id === currWeather.id
+                  ? { ...weather, isFav: true }
+                  : weather
+              );
+
+              setWeatherData(newWeatherData);
+            }}
           />
         )}
 
-        <button 
-          className={styles.button}
-          onClick={() => onShowDetails(id)}
-        >
-          See more
-        </button>
+        <button className={styles.button}>See more</button>
         <svg className={styles.icon} onClick={() => deleteCard(id)}>
           <use
             className={styles.iconMobile}

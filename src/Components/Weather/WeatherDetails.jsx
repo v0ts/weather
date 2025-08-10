@@ -2,18 +2,6 @@ import React from 'react';
 import styles from './WeatherDetails.module.scss';
 
 export function WeatherDetails({ weatherData, activeTab, onClose }) {
-  if (!weatherData || !weatherData.current) {
-    return (
-      <div className={styles.weatherDetails}>
-        <div className={styles.header}>
-          <h2>Weather Details</h2>
-          <button className={styles.closeButton} onClick={onClose}>✕</button>
-        </div>
-        <p className={styles.errorMessage}>Дані про погоду недоступні</p>
-      </div>
-    );
-  }
-
   const {
     current: {
       main: { feels_like, temp_min, temp_max, humidity, pressure },
@@ -58,6 +46,7 @@ export function WeatherDetails({ weatherData, activeTab, onClose }) {
   ];
 
   const chartData = hourly && Array.isArray(hourly) ? hourly.slice(0, 8).map((hour, index) => ({
+
     time: hour.time,
     temp: hour.temp,
     x: 50 + index * 50,
@@ -75,6 +64,7 @@ export function WeatherDetails({ weatherData, activeTab, onClose }) {
 
   const formatForecastDate = (date) => {
     if (!date || !(date instanceof Date)) return 'N/A';
+
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
@@ -86,6 +76,7 @@ export function WeatherDetails({ weatherData, activeTab, onClose }) {
         <h2>Weather Details</h2>
         <button className={styles.closeButton} onClick={onClose}>✕</button>
       </div>
+
 
       <div className={styles.metricsGrid}>
         {weatherMetrics.map((metric, index) => (

@@ -1,3 +1,4 @@
+
 const API_KEY = "f32891df780c5d5f8e423ea0e538be98";
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
@@ -107,3 +108,4 @@ export const getDailyForecast = async (lat, lon) => {
     return null;
   }
 };
+
