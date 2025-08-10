@@ -25,7 +25,7 @@ export function WeatherItem({
 	const [isFavCard, setFavCard] = useState(isFav)
 
 	return (
-		<li className={styles.item} id={id}>
+		<li className={styles.item}>
 			<div className={styles.textFlex}>
 				<p className={styles.text}>{data.city}</p>
 				<p className={styles.text}>{data.country}</p>
@@ -116,7 +116,7 @@ export function WeatherItem({
 					/>
 				)}
 
-				<button className={styles.button}>See more</button>
+				<button className={styles.button} onClick={onShowDetails}>See more</button>
 				<svg className={styles.icon} onClick={() => deleteCard(id)}>
 					<use
 						className={styles.iconMobile}

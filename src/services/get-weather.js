@@ -12,17 +12,18 @@ export const getWeather = async (keyword) => {
     if (!res.ok || data.cod !== 200) {
       return null;
     }
-
+    
     const hourlyData = await getHourlyForecast(data.coord.lat, data.coord.lon);
     const dailyData = await getDailyForecast(data.coord.lat, data.coord.lon);
 
-    return {
+    const result = {
       current: data,
       hourly: hourlyData,
       daily: dailyData
     };
+    
+    return result;
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
@@ -37,17 +38,16 @@ export const getWeatherByCoords = async (lat, lon) => {
     if (!res.ok || data.cod !== 200) {
       return null;
     }
-
+    
     const hourlyData = await getHourlyForecast(lat, lon);
     const dailyData = await getDailyForecast(lat, lon);
 
     return {
       current: data,
       hourly: hourlyData,
-      daily: dailyData
+      daily: dailyData,
     };
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
@@ -63,14 +63,19 @@ export const getHourlyForecast = async (lat, lon) => {
       return null;
     }
 
-    return data.list.slice(0, 24).map(item => ({
+    if (!data.list || !Array.isArray(data.list)) {
+      return null;
+    }
+
+    const hourlyData = data.list.slice(0, 24).map(item => ({
       time: new Date(item.dt * 1000),
       temp: Math.round(item.main.temp),
       weather: item.weather[0].main,
       icon: item.weather[0].icon
     }));
+
+    return hourlyData;
   } catch (err) {
-    console.log(err);
     return null;
   }
 };
@@ -86,12 +91,16 @@ export const getDailyForecast = async (lat, lon) => {
       return null;
     }
 
+    if (!data.list || !Array.isArray(data.list)) {
+      return null;
+    }
+
     const dailyData = data.list.reduce((acc, item) => {
       const date = new Date(item.dt * 1000);
-      const day = date.getDate();
+      const dateKey = date.toDateString();
       
-      if (!acc[day] && date.getHours() >= 12 && date.getHours() < 15) {
-        acc[day] = {
+      if (!acc[dateKey] && date.getHours() >= 12 && date.getHours() < 15) {
+        acc[dateKey] = {
           date: date,
           temp: Math.round(item.main.temp),
           weather: item.weather[0].main,
@@ -102,9 +111,9 @@ export const getDailyForecast = async (lat, lon) => {
       return acc;
     }, {});
 
-    return Object.values(dailyData).slice(0, 8);
+    const result = Object.values(dailyData).slice(0, 8);
+    return result;
   } catch (err) {
-    console.log(err);
     return null;
   }
 };

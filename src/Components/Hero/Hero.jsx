@@ -3,7 +3,7 @@ import styles from './Hero.module.scss'
 
 import searchIcon from './img/search.svg'
 
-export function Hero({ setKeyword }) {
+export function Hero({ onSearch }) {
 	const handleSubmit = e => {
 		e.preventDefault()
 
@@ -11,7 +11,7 @@ export function Hero({ setKeyword }) {
 		const inputValue = form.elements.city.value
 
 		if (inputValue) {
-			setKeyword(inputValue)
+			onSearch(inputValue)
 
 			form.reset()
 		}
