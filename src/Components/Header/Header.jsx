@@ -210,6 +210,16 @@ export function Header() {
 		setIsLogged(true)
 	}
 
+	const modalCLickHandle = () => {
+		if (isModalOpen) {
+			setIsModalOpen(false)
+		} else {
+			setIsModalOpen(true)
+		}
+
+		document.body.classList.toggle(style.noScroll)
+	}
+
 	const mobileMenuClickHandle = () => {
 		if (isMenuOpen) {
 			setIsMenuOpen(false)
@@ -262,7 +272,7 @@ export function Header() {
 								<button
 									type='button'
 									className={style.button}
-									onClick={() => setIsModalOpen(true)}
+									onClick={modalCLickHandle}
 								>
 									{signUpCheck}
 								</button>
@@ -318,7 +328,7 @@ export function Header() {
 									<button
 										type='button'
 										className={style.button}
-										onClick={() => setIsModalOpen(true)}
+										onClick={modalCLickHandle}
 									>
 										{signUpCheck}
 									</button>
@@ -329,15 +339,13 @@ export function Header() {
 				</Container>
 			</header>
 
-			
-
 			{isModalOpen ? (
 				signIn ? (
-					<div className={style.backdrop} onClick={() => setIsModalOpen(false)}>
+					<div className={style.backdrop} onClick={modalCLickHandle}>
 						<div className={style.modal} onClick={e => e.stopPropagation()}>
 							<button
 								className={`${style.modalClose} ${style.hiddenPC}`}
-								onClick={() => setIsModalOpen(false)}
+								onClick={modalCLickHandle}
 							>
 								<img
 									className={style.modalCloseIcon}
@@ -414,11 +422,11 @@ export function Header() {
 						</div>
 					</div>
 				) : logIn ? (
-					<div className={style.backdrop} onClick={() => setIsModalOpen(false)}>
+					<div className={style.backdrop} onClick={modalCLickHandle}>
 						<div className={style.modal} onClick={e => e.stopPropagation()}>
 							<button
 								className={`${style.modalClose} ${style.hiddenPC}`}
-								onClick={() => setIsModalOpen(false)}
+								onClick={modalCLickHandle}
 							>
 								<img
 									className={style.modalCloseIcon}

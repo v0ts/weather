@@ -199,6 +199,7 @@
 	left: 0;
 	right: 0;
 	padding: 30px;
+	z-index: 999;
 }
 
 .mobileList {
@@ -492,4 +493,8 @@
 
 .wrong {
 	border: 1px solid red;
+}
+
+.noScroll { 
+	overflow-y: hidden;
 }
